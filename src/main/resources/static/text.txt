@@ -5,3 +5,8 @@ CREATE TABLE `portfolio`.`user` (
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`userid`, `email`));
+
+
+  CREATE TABLE `portfolio`.`customerpreference` (
+    `customerpreferenceid` INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (`customerpreferenceid`));
