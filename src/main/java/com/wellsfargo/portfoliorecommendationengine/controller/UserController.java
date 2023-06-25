@@ -1,5 +1,7 @@
 package com.wellsfargo.portfoliorecommendationengine.controller;
 
+import com.wellsfargo.portfoliorecommendationengine.entity.LoginRequest;
+import com.wellsfargo.portfoliorecommendationengine.entity.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,13 @@ public class UserController {
 	public ResponseEntity<SignupResponse> newUser(@RequestBody SignupRequest newUser) {
 	    SignupResponse signupResponse = userService.newUser(newUser);
 	    return new ResponseEntity<>(signupResponse, HttpStatus.OK);
-	  }
+	}
+
+	@CrossOrigin
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> newUser(@RequestBody LoginRequest loginRequest) {
+		LoginResponse loginResponse = userService.login(loginRequest);
+		return new ResponseEntity<>(loginResponse, HttpStatus.OK);
+	}
 
 }

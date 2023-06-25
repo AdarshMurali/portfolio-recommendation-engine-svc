@@ -1,5 +1,7 @@
 package com.wellsfargo.portfoliorecommendationengine.service;
 
+import com.wellsfargo.portfoliorecommendationengine.entity.LoginRequest;
+import com.wellsfargo.portfoliorecommendationengine.entity.LoginResponse;
 import com.wellsfargo.portfoliorecommendationengine.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,6 @@ public class UserService {
 
 
 	public SignupResponse newUser(SignupRequest newUser) {
-		// TODO Auto-generated method stub
-		
 		SignupResponse signupResponse = new SignupResponse();
 		User user = new User();
 		user.setId(1L);
@@ -25,4 +25,11 @@ public class UserService {
 		return signupResponse;
 	}
 
+	public LoginResponse login(LoginRequest loginRequest) {
+		LoginResponse loginResponse = new LoginResponse();
+		User user = new User();
+		user.setId(1L);
+		loginResponse.setUser(user);
+		return loginResponse;
+	}
 }
