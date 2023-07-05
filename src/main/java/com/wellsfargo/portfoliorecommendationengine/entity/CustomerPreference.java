@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ import java.math.BigInteger;
 
 @Getter
 @Setter
-@Entity
+@Entity(name="CustomerPreference")
 @Table(name="CustomerPreference")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,21 +25,29 @@ public class CustomerPreference {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native",strategy = "native")
-    private Long customerpreferenceid;
+    @Column(name="Customer_Preference_Id", nullable=false)
+    private Long customerPreferenceId;
 
-    private BigInteger investment_amount;
+    @Column(name="Investment_Amount", nullable=false)
+    private BigInteger investmentAmount;
 
+    @Column(name="Age", nullable=false)
     private Integer age;
 
-    private Integer investment_duration;
+    @Column(name="Investment_Duration", nullable=false)
+    private Integer investmentDuration;
 
-    private String investment_sector;
+    @Column(name="Investment_Sector", nullable=false)
+    private String investmentSector;
 
-    private String market_capitalization;
+    @Column(name="Market_Capitalization", nullable=false)
+    private String marketCapitalization;
 
-    private String portfolio_rate_of_return;
+    @Column(name="Portfolio_Rate_Of_Return", nullable=false)
+    private String portfolioRateOfReturn;
 
-    private Long userid;
+    @Column(name="User_Id", nullable=false)
+    private Long userId;
 
 
 }
