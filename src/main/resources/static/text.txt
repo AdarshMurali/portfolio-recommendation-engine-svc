@@ -1,17 +1,51 @@
-/****** Object:  Table [dbo].[clients]    Script Date: 05-07-2023 19:39:57 ******/
+/****** Object:  Table [dbo].[Clients]    Script Date: 05-07-2023 22:43:00 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[clients](
-	[userid] [int] IDENTITY(1,1) NOT NULL,
-	[firstname] [varchar](20) NULL,
-	[lastname] [varchar](20) NULL,
-	[email] [varchar](30) NULL,
-	[password] [varchar](500) NULL
+CREATE TABLE [dbo].[Clients](
+	[User_Id] [int] IDENTITY(1,1) NOT NULL,
+	[First_Name] [varchar](20) NULL,
+	[Last_Name] [varchar](20) NULL,
+	[Email] [varchar](30) NULL,
+	[Password] [varchar](500) NULL,
+ CONSTRAINT [PK_clients] PRIMARY KEY CLUSTERED
+(
+	[User_Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [dbo].[Customer_Preference]    Script Date: 05-07-2023 22:43:45 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Customer_Preference](
+	[Customer_Preference_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Investment_Amount] [bigint] NOT NULL,
+	[Age] [int] NOT NULL,
+	[Investment_Sector] [varchar](100) NOT NULL,
+	[Market_Capitalization] [varchar](100) NOT NULL,
+	[Portfolio_Rate_Of_Return] [varchar](100) NOT NULL,
+	[User_Id] [int] NOT NULL,
+ CONSTRAINT [PK_CustomerPreference] PRIMARY KEY CLUSTERED
+(
+	[Customer_Preference_Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Customer_Preference]  WITH CHECK ADD  CONSTRAINT [FK_CustomerPreference_clients] FOREIGN KEY([User_Id])
+REFERENCES [dbo].[Clients] ([User_Id])
+GO
+
+ALTER TABLE [dbo].[Customer_Preference] CHECK CONSTRAINT [FK_CustomerPreference_clients]
 GO
 
 
