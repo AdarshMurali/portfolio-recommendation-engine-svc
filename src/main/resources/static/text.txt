@@ -1,12 +1,17 @@
-CREATE TABLE `portfolio`.`user` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(20) NOT NULL,
-  `lastname` VARCHAR(20) NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`userid`, `email`));
+/****** Object:  Table [dbo].[clients]    Script Date: 05-07-2023 19:39:57 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[clients](
+	[userid] [int] IDENTITY(1,1) NOT NULL,
+	[firstname] [varchar](20) NULL,
+	[lastname] [varchar](20) NULL,
+	[email] [varchar](30) NULL,
+	[password] [varchar](500) NULL
+) ON [PRIMARY]
+GO
 
 
-  CREATE TABLE `portfolio`.`customerpreference` (
-    `customerpreferenceid` INT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (`customerpreferenceid`));
