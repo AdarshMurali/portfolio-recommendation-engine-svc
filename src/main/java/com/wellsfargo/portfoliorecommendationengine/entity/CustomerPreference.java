@@ -11,11 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigInteger;
 
 @Getter
 @Setter
 @Entity
-@Table(name="customerpreference")
+@Table(name="CustomerPreference")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerPreference {
@@ -24,4 +25,20 @@ public class CustomerPreference {
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native",strategy = "native")
     private Long customerpreferenceid;
+
+    private BigInteger investment_amount;
+
+    private Integer age;
+
+    private Integer investment_duration;
+
+    private String investment_sector;
+
+    private String market_capitalization;
+
+    private String portfolio_rate_of_return;
+
+    private Long userid;
+
+
 }

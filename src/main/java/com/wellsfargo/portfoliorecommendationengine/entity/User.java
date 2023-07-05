@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@Table(name="clients")
+@Table(name="Clients")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
