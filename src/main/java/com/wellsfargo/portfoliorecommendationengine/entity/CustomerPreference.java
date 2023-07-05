@@ -34,9 +34,6 @@ public class CustomerPreference {
     @Column(name="Age", nullable=false)
     private Integer age;
 
-    @Column(name="Investment_Duration", nullable=false)
-    private Integer investmentDuration;
-
     @Column(name="Investment_Sector", nullable=false)
     private String investmentSector;
 
