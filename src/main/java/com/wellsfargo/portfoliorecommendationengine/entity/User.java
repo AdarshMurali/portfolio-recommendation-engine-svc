@@ -27,10 +27,10 @@ public class User {
 	@Column(name="User_Id", nullable=false)
 	private Long userid;
 
-	@Column(name="Firstname", nullable=false)
+	@Column(name="First_Name", nullable=false)
 	private String firstname;
 
-	@Column(name="Lastname", nullable=false)
+	@Column(name="Last_Name", nullable=false)
 	private String lastname;
 
 	@Column(name="Email", nullable=false)
