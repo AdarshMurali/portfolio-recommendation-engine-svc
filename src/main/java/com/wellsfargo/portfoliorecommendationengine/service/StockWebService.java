@@ -1,11 +1,22 @@
 package com.wellsfargo.portfoliorecommendationengine.service;
 
+import com.wellsfargo.portfoliorecommendationengine.entity.StockBasicDetails;
+import com.wellsfargo.portfoliorecommendationengine.entity.StockTimeSeriesData;
 import com.wellsfargo.portfoliorecommendationengine.entity.TimeSeriesResponse;
+import com.wellsfargo.portfoliorecommendationengine.repository.StockBasicDetailsRepository;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class StockWebService {
@@ -15,27 +26,41 @@ public class StockWebService {
 
     String apiKey = "X8N115V4N6A1QCIG";
 
-
-    public String loadTimeSeriesData() {
-        String[] stocks = new String[] {"CARR", "CBOE", "IBM"};
-
-        String uri1 = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=CARR&outputsize=compact&apikey="+apiKey;
-        String uri2 = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=CBOE&outputsize=compact&apikey="+apiKey;
-        String uri3 = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=ARE&outputsize=compact&apikey="+apiKey;
+    @Autowired
+    private StockBasicDetailsRepository stockBasicDetailsRepository;
 
 
+    public String loadTimeSeriesData() throws IOException {
 
-        for(int i = 0; i < stocks.length ; i++){
-            ResponseEntity<String> response
-                    = restTemplate.getForEntity(uri1, String.class);
+        ResponseEntity<String> response = null;
+        List<StockBasicDetails> stockBasicDetails = stockBasicDetailsRepository.findAll();
 
+        String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=input&outputsize=compact&apikey="+apiKey;
+
+
+
+
+        for(int i = 0; i < stockBasicDetails.size() ; i++){
+            String url = uri.replace("input", stockBasicDetails.get(i).getSymbol());
+            System.out.println(" Url "+url);
+            response = restTemplate.getForEntity(url, String.class);
             String productsJson = response.getBody();
-            Object data = response.getBody();
             System.out.println(productsJson);
 
             JSONObject parser = new JSONObject(productsJson);
-//            JSONObject timeSeriesParser = parser.get("Time Series (Daily)").entrySet().stream().findFirst().get().value;
-            JSONObject parser2 = new JSONObject(productsJson);
+            JSONObject timeSeriesParser = (JSONObject) parser.get("Time Series (Daily)");
+            LinkedHashMap<String, Object> result = new ObjectMapper().readValue(String.valueOf(timeSeriesParser), new TypeReference<Object>(){});
+
+            try {
+//                StockBasicDetails stockBasicDetailsResponse = (StockBasicDetails) result.get("2023-07-07");
+                ObjectMapper mapper = new ObjectMapper();
+                StockTimeSeriesData data = mapper.convertValue(result.get("2023-07-07"), new TypeReference<StockTimeSeriesData>() { });
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            int k = 0;
+
+break;
         }
 
 

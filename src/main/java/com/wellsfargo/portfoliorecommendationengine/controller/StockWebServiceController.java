@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping(path="/StockWebService")
 public class StockWebServiceController {
@@ -18,7 +20,7 @@ public class StockWebServiceController {
 
     @CrossOrigin
     @GetMapping("/loadTimeSeriesData")
-    public ResponseEntity<String> loadTimeSeriesData() {
+    public ResponseEntity<String> loadTimeSeriesData() throws IOException {
 
         return new ResponseEntity<>(stockWebService.loadTimeSeriesData(), HttpStatus.OK);
     }
