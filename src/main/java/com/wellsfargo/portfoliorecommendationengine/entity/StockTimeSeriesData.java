@@ -15,11 +15,12 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@Entity(name="StockTimeSeriesData")
-@Table(name="StockTimeSeriesData")
+@Entity(name="StockTimeSeriesDetails")
+@Table(name="StockTimeSeriesDetails")
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockTimeSeriesData {
+
 
     @Id
     private Integer ID;
@@ -29,4 +30,9 @@ public class StockTimeSeriesData {
     private String high;
     private String low;
     private String close;
+    private String refreshed;
+    private String adjusted_close;
+    private String volume ;
+    private String dividend_amount ;
+    private String split_coefficient;
 }
