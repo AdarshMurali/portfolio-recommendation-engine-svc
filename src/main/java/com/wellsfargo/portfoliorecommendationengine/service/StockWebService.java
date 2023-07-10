@@ -4,6 +4,7 @@ import com.wellsfargo.portfoliorecommendationengine.entity.StockBasicDetails;
 import com.wellsfargo.portfoliorecommendationengine.entity.StockTimeSeriesData;
 import com.wellsfargo.portfoliorecommendationengine.entity.TimeSeriesResponse;
 import com.wellsfargo.portfoliorecommendationengine.repository.StockBasicDetailsRepository;
+import com.wellsfargo.portfoliorecommendationengine.repository.StockTimeSeriesDataRepository;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.JSONObject;
@@ -31,6 +32,10 @@ public class StockWebService {
     private StockBasicDetailsRepository stockBasicDetailsRepository;
 
 
+    @Autowired
+    private StockTimeSeriesDataRepository stockTimeSeriesDataRepository;
+
+
     public String loadTimeSeriesData() throws IOException {
 
         ResponseEntity<String> response = null;
@@ -44,7 +49,7 @@ public class StockWebService {
         for(int i = 0; i < stockBasicDetails.size() ; i++){
             List<StockTimeSeriesData> list = new ArrayList<>();
             String url = uri.replace("input", stockBasicDetails.get(i).getSymbol());
-            System.out.println(" Url "+url);
+//            System.out.println(" Url "+url);
             response = restTemplate.getForEntity(url, String.class);
             String productsJson = response.getBody();
 
@@ -78,6 +83,11 @@ public class StockWebService {
                         std.setVolume( valueMap.get("6. volume"));
                         std.setDividend_amount( valueMap.get("7. dividend amount"));
                         std.setSplit_coefficient( valueMap.get("8. split coefficient"));
+                        try{
+                            stockTimeSeriesDataRepository.save(std);
+                        }catch (Exception ee){
+                            ee.printStackTrace();
+                        }
                        list.add(std);
                     }
 
