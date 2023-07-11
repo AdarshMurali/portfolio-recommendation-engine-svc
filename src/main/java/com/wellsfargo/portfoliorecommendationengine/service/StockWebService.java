@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class StockWebService {
@@ -36,16 +37,41 @@ public class StockWebService {
     private StockTimeSeriesDataRepository stockTimeSeriesDataRepository;
 
 
+    private List<String> getDistinctSymbol(){
+        return stockTimeSeriesDataRepository.getDistinctSymbol();
+    }
+
+    private List<StockBasicDetails> getStockBasicDetails(){
+        return stockBasicDetailsRepository.findAll();
+    }
+
     public String loadTimeSeriesData() throws IOException {
 
         ResponseEntity<String> response = null;
+
         List<StockBasicDetails> stockBasicDetails = stockBasicDetailsRepository.findAll();
-        String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=IBM&outputsize=FULL&apikey="+apiKey;
+        List<String> exisitngSymbol = stockTimeSeriesDataRepository.getDistinctSymbol();
+
+        String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=input&outputsize=FULL&apikey="+apiKey;
 
         System.out.println(" ");
         System.out.println("Total trip  "+stockBasicDetails.size());
         System.out.println(" ");
         for(int i = 0; i < stockBasicDetails.size() ; i++){
+
+            if(exisitngSymbol.contains(stockBasicDetails.get(i).getSymbol())){
+                System.out.println("Symbol details is already present "+stockBasicDetails.get(i).getSymbol());
+                continue;
+            }
+
+            if(Objects.isNull(stockBasicDetails.get(i).getSymbol())){
+                continue;
+            }
+
+            if(Objects.isNull(stockBasicDetails.get(i).getSNO())){
+                continue;
+            }
+
             System.out.println(" ");
             System.out.println("Started fetching details for : "+stockBasicDetails.get(i).getSymbol());
             List<StockTimeSeriesData> list = new ArrayList<>();
@@ -83,7 +109,7 @@ public class StockWebService {
                     }
                     try{
                         System.out.println("INSERTING ROWS "+ list.size());
-//                        stockTimeSeriesDataRepository.saveAll(list);
+                        stockTimeSeriesDataRepository.saveAll(list);
                         System.out.println("RESULT : SUCCESS"+ stockBasicDetails.get(i).getSymbol() );
                     }catch (Exception ee){
                         System.out.println("RESULT : FAILURE"+ stockBasicDetails.get(i).getSymbol() );
