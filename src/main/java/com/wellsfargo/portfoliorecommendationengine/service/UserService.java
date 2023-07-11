@@ -3,6 +3,7 @@ package com.wellsfargo.portfoliorecommendationengine.service;
 import com.wellsfargo.portfoliorecommendationengine.entity.LoginRequest;
 import com.wellsfargo.portfoliorecommendationengine.entity.LoginResponse;
 import com.wellsfargo.portfoliorecommendationengine.entity.User;
+import com.wellsfargo.portfoliorecommendationengine.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class UserService {
 		LoginResponse loginResponse = new LoginResponse();
 		Optional<User> savedUserOptional = userRepository.findByEmail(loginRequest.getEmail());
 		if(!savedUserOptional.isPresent()){
-//			throw new User
+			throw new UserNotFoundException("User not found with email "+loginRequest.getEmail());
 		}else{
 			User savedUser = savedUserOptional.get();
 			if(loginRequest.getEmail().equals(savedUser.getEmail()) && loginRequest.getPassword().equals(savedUser.getPassword())){
