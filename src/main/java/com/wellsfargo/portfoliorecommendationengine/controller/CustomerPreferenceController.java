@@ -1,6 +1,8 @@
 package com.wellsfargo.portfoliorecommendationengine.controller;
 
 import com.wellsfargo.portfoliorecommendationengine.entity.CustomerPreference;
+import com.wellsfargo.portfoliorecommendationengine.entity.GetRecommendationRequest;
+import com.wellsfargo.portfoliorecommendationengine.entity.GetRecommendationResponse;
 import com.wellsfargo.portfoliorecommendationengine.entity.SignupRequest;
 import com.wellsfargo.portfoliorecommendationengine.entity.SignupResponse;
 import com.wellsfargo.portfoliorecommendationengine.service.CustomerPreferenceService;
@@ -34,4 +36,13 @@ public class CustomerPreferenceController {
     public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello "+Math.random(), HttpStatus.OK);
     }
+
+
+    @CrossOrigin
+    @PostMapping("/getRecommendation")
+    public ResponseEntity<GetRecommendationResponse> getRecommendation(@RequestBody GetRecommendationRequest getRecommendationRequest) {
+        GetRecommendationResponse recommendationResponse = customerPreferenceService.getRecommendation(getRecommendationRequest);
+        return new ResponseEntity<>(recommendationResponse, HttpStatus.OK);
+    }
+
 }
