@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- main
+- develop
 
 pool:
   vmImage: ubuntu-latest
@@ -20,3 +20,13 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'AdarshDockerHub'
+    command: 'login'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'AdarshDockerHub'
+    repository: 'adarshmurali/adarsh_nginx'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
