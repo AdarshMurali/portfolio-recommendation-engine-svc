@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- main
+- develop
 
 pool:
   vmImage: ubuntu-latest
@@ -27,6 +27,6 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'AdarshDockerHub'
-    repository: 'adarshmurali/aadya_nginx'
+    repository: 'adarshmurali/adarsh_nginx'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
