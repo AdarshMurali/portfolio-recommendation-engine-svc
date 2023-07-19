@@ -1,7 +1,87 @@
-CREATE TABLE `portfolio`.`user` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(20) NOT NULL,
-  `lastname` VARCHAR(20) NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`userid`, `email`));
+/****** Object:  Table [dbo].[Clients]    Script Date: 05-07-2023 22:43:00 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Clients](
+	[User_Id] [int] IDENTITY(1,1) NOT NULL,
+	[First_Name] [varchar](20) NULL,
+	[Last_Name] [varchar](20) NULL,
+	[Email] [varchar](30) NULL,
+	[Password] [varchar](500) NULL,
+ CONSTRAINT [PK_clients] PRIMARY KEY CLUSTERED
+(
+	[User_Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [dbo].[Customer_Preference]    Script Date: 05-07-2023 22:43:45 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Customer_Preference](
+	[Customer_Preference_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Investment_Amount] [bigint] NOT NULL,
+	[Age] [int] NOT NULL,
+	[Investment_Sector] [varchar](100) NOT NULL,
+	[Market_Capitalization] [varchar](100) NOT NULL,
+	[Portfolio_Rate_Of_Return] [varchar](100) NOT NULL,
+	[User_Id] [int] NOT NULL,
+ CONSTRAINT [PK_CustomerPreference] PRIMARY KEY CLUSTERED
+(
+	[Customer_Preference_Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****** Object:  Table [dbo].[StockTimeSeriesDetails]    Script Date: 11-07-2023 00:19:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[StockTimeSeriesDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SNo] [int] NULL,
+	[Symbol] [varchar](50) NULL,
+	[openPrice] [varchar](50) NULL,
+	[high] [varchar](50) NULL,
+	[low] [varchar](50) NULL,
+	[closePrice] [varchar](50) NULL,
+	[Refreshed] [varchar](50) NULL,
+	[adjusted_close] [varchar](50) NULL,
+	[volume] [varchar](50) NULL,
+	[dividend_amount] [varchar](50) NULL,
+	[split_coefficient] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+
+
+ALTER TABLE [dbo].[Customer_Preference]  WITH CHECK ADD  CONSTRAINT [FK_CustomerPreference_clients] FOREIGN KEY([User_Id])
+REFERENCES [dbo].[Clients] ([User_Id])
+GO
+
+ALTER TABLE [dbo].[Customer_Preference] CHECK CONSTRAINT [FK_CustomerPreference_clients]
+GO
+
+

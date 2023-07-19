@@ -1,0 +1,12 @@
+#  https://faun.pub/how-to-pass-configurations-to-spring-app-running-on-docker-container-f6e1f0ad66c4
+
+my-app:
+  image: my-app-image-name
+  build:
+    dockerfile: Dockerfile
+    context: .
+  ports:
+    - '9080:8080'
+  environment:
+    API_BASE: http://mock-api:8080
+    TEST_API_PATH: /someTestApiPath
