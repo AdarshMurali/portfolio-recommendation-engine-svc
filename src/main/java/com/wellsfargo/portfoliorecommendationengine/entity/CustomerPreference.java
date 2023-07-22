@@ -31,17 +31,17 @@ public class CustomerPreference {
     @Column(name="Investment_Amount", nullable=false)
     private BigInteger investmentAmount;
 
-    @Column(name="Age", nullable=false)
-    private Integer age;
+    @Column(name="Investment_Duration", nullable=false)
+    private Integer investmentDuration;
 
     @Column(name="Investment_Sector", nullable=false)
     private String investmentSector;
 
-    @Column(name="Market_Capitalization", nullable=false)
-    private String marketCapitalization;
+    @Column(name="Volatility", nullable=false)
+    private String volatility;
 
-    @Column(name="Portfolio_Rate_Of_Return", nullable=false)
-    private String portfolioRateOfReturn;
+    @Column(name="Portfolio_Name", nullable=false)
+    private String portfolioName;
 
     @Column(name="User_Id", nullable=false)
     private Long userId;
