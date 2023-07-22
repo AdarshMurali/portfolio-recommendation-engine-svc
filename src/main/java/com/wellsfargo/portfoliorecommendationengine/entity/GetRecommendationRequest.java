@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class GetRecommendationRequest {
 
-    private Integer userId;
+    private Long userId;
 }

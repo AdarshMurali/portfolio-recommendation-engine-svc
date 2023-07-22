@@ -29,10 +29,10 @@ GO
 CREATE TABLE [dbo].[Customer_Preference](
 	[Customer_Preference_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Investment_Amount] [bigint] NOT NULL,
-	[Age] [int] NOT NULL,
+	[Investment_Duration] [varchar](100) NOT NULL,
 	[Investment_Sector] [varchar](100) NOT NULL,
-	[Market_Capitalization] [varchar](100) NOT NULL,
-	[Portfolio_Rate_Of_Return] [varchar](100) NOT NULL,
+	[Volatility] [varchar](100) NOT NULL,
+	[Portfolio_Name] [varchar](100) NOT NULL,
 	[User_Id] [int] NOT NULL,
  CONSTRAINT [PK_CustomerPreference] PRIMARY KEY CLUSTERED
 (

@@ -39,10 +39,12 @@ public class CustomerPreferenceController {
 
 
     @CrossOrigin
-    @PostMapping("/getRecommendation")
-    public ResponseEntity<GetRecommendationResponse> getRecommendation(@RequestBody GetRecommendationRequest getRecommendationRequest) {
-        GetRecommendationResponse recommendationResponse = customerPreferenceService.getRecommendation(getRecommendationRequest);
+    @PostMapping("/getDashboardData")
+    public ResponseEntity<GetRecommendationResponse> getDashboardData(@RequestBody GetRecommendationRequest getRecommendationRequest) {
+        GetRecommendationResponse recommendationResponse = customerPreferenceService.getDashboardData(getRecommendationRequest);
         return new ResponseEntity<>(recommendationResponse, HttpStatus.OK);
     }
+
+
 
 }
