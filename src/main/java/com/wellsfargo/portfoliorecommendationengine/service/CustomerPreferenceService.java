@@ -9,6 +9,9 @@ import com.wellsfargo.portfoliorecommendationengine.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CustomerPreferenceService {
 
@@ -20,9 +23,11 @@ public class CustomerPreferenceService {
         return savedCustomerPreference;
     }
 
-    public GetRecommendationResponse getRecommendation(GetRecommendationRequest getRecommendationRequest) {
-//        GetRecommendationResponse recommendationResponse = new GetRecommendationResponse();
+
+    public GetRecommendationResponse getDashboardData(GetRecommendationRequest getRecommendationRequest) {
+        //        GetRecommendationResponse recommendationResponse = new GetRecommendationResponse();
 //        return recommendationResponse;
+        List<CustomerPreference> customerPreferenceList =  customerPreferenceRepository.findByUserId(getRecommendationRequest.getUserId());
         return SecurityUtil.getRecommendationResponse();
     }
 }
